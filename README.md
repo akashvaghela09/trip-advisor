@@ -6,6 +6,8 @@ specialised agents, chains them when they depend on each other
 (**Destination → Itinerary → Budget**), and synthesises a single coherent
 answer. Every step is streamed live and persisted as an audit trail.
 
+![Screen](./client/public/screen.png "Screen shot")
+
 ## Demo
 
 - Live app: **https://trip-advisor.akash11.com/**
@@ -105,22 +107,22 @@ npm start          # runs the compiled backend (node backend/dist/index.js)
 
 ## Environment variables
 
-| Var                  | Where   | Purpose                                                        |
-| -------------------- | ------- | -------------------------------------------------------------- |
-| `LLM_PROVIDER`       | backend | `gemini` or `openai` (default `gemini`)                        |
-| `GEMINI_API_KEY`     | backend | Gemini key (used when `LLM_PROVIDER=gemini`)                   |
-| `GEMINI_MODEL`       | backend | Gemini model id (default `gemini-2.0-flash`)                   |
-| `OPENAI_API_KEY`     | backend | Key for the OpenAI-compatible provider                         |
+| Var                  | Where   | Purpose                                                                |
+| -------------------- | ------- | ---------------------------------------------------------------------- |
+| `LLM_PROVIDER`       | backend | `gemini` or `openai` (default `gemini`)                                |
+| `GEMINI_API_KEY`     | backend | Gemini key (used when `LLM_PROVIDER=gemini`)                           |
+| `GEMINI_MODEL`       | backend | Gemini model id (default `gemini-2.0-flash`)                           |
+| `OPENAI_API_KEY`     | backend | Key for the OpenAI-compatible provider                                 |
 | `OPENAI_BASE_URL`    | backend | Endpoint base URL (empty = OpenAI; set for Grok/Groq/Ollama/LM Studio) |
-| `OPENAI_MODEL`       | backend | Model id (default `gpt-4o-mini`)                               |
-| `OPENAI_JSON_FORMAT` | backend | `json_object` / `json_schema` / `off`                          |
-| `PORT`               | backend | API port (default 3001)                                        |
-| `ALLOWED_ORIGINS`    | backend | Comma-separated frontend origins allowed by CORS               |
-| `DB_PATH`            | backend | SQLite file path (default `./data/audit.db`)                   |
-| `LLM_TIMEOUT_MS`     | backend | Per-call timeout (default 25000; raise for local models)       |
-| `LLM_MAX_RETRIES`    | backend | Retries per model call (default 2)                             |
-| `RUN_MAX_MS`         | backend | Overall run cap (default 90000)                                |
-| `VITE_API_URL`       | client  | Backend base URL in prod (empty in dev uses the Vite proxy)    |
+| `OPENAI_MODEL`       | backend | Model id (default `gpt-4o-mini`)                                       |
+| `OPENAI_JSON_FORMAT` | backend | `json_object` / `json_schema` / `off`                                  |
+| `PORT`               | backend | API port (default 3001)                                                |
+| `ALLOWED_ORIGINS`    | backend | Comma-separated frontend origins allowed by CORS                       |
+| `DB_PATH`            | backend | SQLite file path (default `./data/audit.db`)                           |
+| `LLM_TIMEOUT_MS`     | backend | Per-call timeout (default 25000; raise for local models)               |
+| `LLM_MAX_RETRIES`    | backend | Retries per model call (default 2)                                     |
+| `RUN_MAX_MS`         | backend | Overall run cap (default 90000)                                        |
+| `VITE_API_URL`       | client  | Backend base URL in prod (empty in dev uses the Vite proxy)            |
 
 ## Persistence / audit schema
 
