@@ -1,0 +1,5 @@
+{
+  "watch": ["src", "../shared/dist", ".env", "../.env"],
+  "ext": "ts,json,env",
+  "exec": "tsx src/index.ts"
+}

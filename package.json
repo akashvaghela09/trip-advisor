@@ -1,0 +1,20 @@
+{
+  "name": "trip-advisor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "backend",
+    "client"
+  ],
+  "scripts": {
+    "build:shared": "npm run build -w shared",
+    "dev": "npm run build:shared && concurrently -n shared,api,web -c magenta,blue,green \"npm run dev -w shared\" \"npm run dev -w backend\" \"npm run dev -w client\"",
+    "build": "npm run build -w shared && npm run build -w backend && npm run build -w client",
+    "start": "node backend/dist/index.js"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+client/dist/
+.env
+*.local
+backend/data/*.db
+backend/data/*.db-*
+.DS_Store
+*.log
+,vercel
+.claude
