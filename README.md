@@ -16,7 +16,7 @@ answer. Every step is streamed live and persisted as an audit trail.
 ## Tech stack
 
 - **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS v4, state via Context + `useReducer`.
-- **Backend:** Node.js + Express 5, SSE streaming, SQLite (`better-sqlite3`).
+- **Backend:** Node.js + Express 5, SSE streaming, PostgreSQL (`pg`) — works with any Postgres, including Supabase.
 - **Shared:** an `@trip/shared` workspace package - zod schemas + types + the SSE event contract, one source of truth for both sides.
 - **LLM:** a pluggable provider. Use Google Gemini, or any OpenAI-compatible endpoint (OpenAI, xAI Grok, Groq, Ollama, LM Studio). Switch with one env var.
 
@@ -60,9 +60,9 @@ One install at the root covers all three workspaces (shared, backend, client):
 npm install
 ```
 
-> `better-sqlite3` builds a small native module during install. On Linux that
-> needs build tools - if the install fails, run
-> `sudo apt-get install -y build-essential python3` and reinstall.
+> The backend needs a PostgreSQL database. The fastest option is a free
+> [Supabase](https://supabase.com) project. copy its connection string into
+> `DATABASE_URL` (see below).
 
 **3. Configure the backend**
 
@@ -118,7 +118,7 @@ npm start          # runs the compiled backend (node backend/dist/index.js)
 | `OPENAI_JSON_FORMAT` | backend | `json_object` / `json_schema` / `off`                                  |
 | `PORT`               | backend | API port (default 3001)                                                |
 | `ALLOWED_ORIGINS`    | backend | Comma-separated frontend origins allowed by CORS                       |
-| `DB_PATH`            | backend | SQLite file path (default `./data/audit.db`)                           |
+| `DATABASE_URL`       | backend | Postgres connection string (Supabase or self-hosted). |
 | `LLM_TIMEOUT_MS`     | backend | Per-call timeout (default 25000; raise for local models)               |
 | `LLM_MAX_RETRIES`    | backend | Retries per model call (default 2)                                     |
 | `RUN_MAX_MS`         | backend | Overall run cap (default 90000)                                        |
@@ -129,8 +129,8 @@ npm start          # runs the compiled backend (node backend/dist/index.js)
 - `runs` - one row per request: message, plan, final answer, status, duration.
 - `agent_steps` - one row per agent invocation: input, output, status, error,
   duration, constraint flag. This is the audit trail of which agents handled
-  each request. Accessed behind a `RunRepository` interface so SQLite to
-  Postgres is a one-file swap.
+  each request. Accessed behind a `RunRepository` interface, so the storage
+  engine is a one-file swap (`backend/src/db/postgres.ts`).
 
 ## Notes
 

@@ -35,7 +35,8 @@ export const config = {
     | "json_schema"
     | "off",
 
-  dbPath: process.env.DB_PATH ?? "./data/audit.db",
+  // Postgres connection string
+  databaseUrl: process.env.DATABASE_URL ?? "",
   allowedOrigins: (process.env.ALLOWED_ORIGINS ?? "")
     .split(",")
     .map((s) => s.trim())
